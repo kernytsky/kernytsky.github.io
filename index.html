@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuvaLite - Illuminated Art for Your Space</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: pulse 6s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff8000, #ffff00, #80ff00, 
+                #00ff00, #00ff80, #00ffff, #0080ff,
+                #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000);
+            background-size: 1200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow-flow 20s linear infinite;
+            text-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes rainbow-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 1200% 50%; }
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            color: #d0d0d0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff0080, #00f5ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 128, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 128, 0.5);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Product Images */
+        .product-showcase {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 0, 128, 0.1), rgba(0, 245, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 128, 0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated lamp simulation */
+        .lamp-demo {
+            width: 60px;
+            height: 200px;
+            background: linear-gradient(180deg, #ff0080, #ff8c00, #40e0d0, #ee82ee);
+            border-radius: 30px 30px 15px 15px;
+            position: relative;
+            animation: glow 4s ease-in-out infinite;
+        }
+        
+        .lamp-base {
+            width: 80px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        @keyframes glow {
+            0%, 100% { 
+                background: linear-gradient(180deg, #ff0080, #ff8c00, #40e0d0, #ee82ee);
+                box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+            }
+            25% { 
+                background: linear-gradient(180deg, #40e0d0, #ff0080, #ff8c00, #ee82ee);
+                box-shadow: 0 0 20px rgba(64, 224, 208, 0.5);
+            }
+            50% { 
+                background: linear-gradient(180deg, #ff8c00, #ee82ee, #ff0080, #40e0d0);
+                box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+            }
+            75% { 
+                background: linear-gradient(180deg, #ee82ee, #40e0d0, #ff8c00, #ff0080);
+                box-shadow: 0 0 20px rgba(238, 130, 238, 0.5);
+            }
+        }
+        
+        /* Features */
+        .features {
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #00f5ff;
+        }
+        
+        .feature-item p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .footer-logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff0080, #00f5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ff00ff;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+                border-radius: 50%;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Floating particles -->
+    <div class="particle" style="left: 10%; animation-delay: 0s; background: #ff0080;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 1s; background: #00f5ff;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 2s; background: #ff8c00;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 3s; background: #ee82ee;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 4s; background: #40e0d0;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 5s; background: #ff0080;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 0.5s; background: #00f5ff;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 1.5s; background: #ff8c00;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 2.5s; background: #ee82ee;"></div>
+    
+    <header>
+        <div class="logo">LuvaLite</div>
+        <div class="tagline">Illuminated Art for Your Space</div>
+    </header>
+    
+    <section class="hero">
+        <h1>Where Light Meets Art</h1>
+        <p>Experience the mesmerizing beauty of our handcrafted LED lamps. Each LuvaLite transforms your space with flowing, dynamic colors that dance like liquid light.</p>
+        <a href="#contact" class="cta-button">Get Your LuvaLite</a>
+    </section>
+    
+    <section class="product-showcase">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <video autoplay muted loop playsinline style="width: 70%; height: auto; border-radius: 15px;">
+                        <source src="luvalite-demo.mp4" type="video/mp4">
+                        <source src="luvalite-demo.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <h3>Classic Flow</h3>
+                <p>Our signature curved design demoing bubbling flow effect. Perfect for creating ambient lighting in any room.</p>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="straight_space2.png" alt="LuvaLite Classic Flow" style="width: 70%; height: auto; border-radius: 15px;">
+                </div>
+                <h3>Straight Edge</h3>
+                <p>Clean, modern lines with the same stunning color flow. Ideal for contemporary spaces and minimalist design.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <h2>Why Choose LuvaLite?</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <span class="feature-icon">🎨</span>
+                <h3>Custom Colors</h3>
+                <p>Programmable LED colors that can match any mood or setting. Create your perfect ambiance.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🔧</span>
+                <h3>3D Printed</h3>
+                <p>Precision crafted using advanced 3D printing technology for perfect curves and seamless design.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">⚡</span>
+                <h3>Energy Efficient</h3>
+                <p>LED technology provides beautiful lighting while using minimal energy. Simply plug into any standard wall outlet for reliable, eco-friendly illumination.</p>
+            </div>
+            
+            <div class="feature-item">
+                <span class="feature-icon">🎯</span>
+                <h3>Easy Control</h3>
+                <p>Simple control of modes and brightness with several push buttons conveniently located on the base. No app needed!</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="footer-logo">LuvaLite</div>
+        <p>Ready to transform your space with flowing light art?</p>
+        <p style="margin-top: 1rem; color: #888;">Contact us to order your LuvaLite</p>
+    </footer>
+    
+    <script>
+        // Add some interactive sparkle effects
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() < 0.1) { // Only create sparkles occasionally
+                const sparkle = document.createElement('div');
+                sparkle.className = 'particle';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.position = 'fixed';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                sparkle.style.background = ['#ff0080', '#00f5ff', '#ff8c00', '#ee82ee', '#40e0d0'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        });
+        
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1) rotate(180deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
